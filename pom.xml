@@ -46,6 +46,11 @@
             <artifactId>manifold-props-rt</artifactId>
             <version>${manifold.version}</version>
         </dependency>
+        <dependency>
+            <groupId>systems.manifold</groupId>
+            <artifactId>manifold-tuple-rt</artifactId>
+            <version>${manifold.version}</version>
+        </dependency>
 
         <!--Test deps -->
         <dependency>
@@ -101,6 +106,11 @@
                         <path>
                             <groupId>systems.manifold</groupId>
                             <artifactId>manifold-strings</artifactId>
+                            <version>${manifold.version}</version>
+                        </path>
+                        <path>
+                            <groupId>systems.manifold</groupId>
+                            <artifactId>manifold-tuple</artifactId>
                             <version>${manifold.version}</version>
                         </path>
                     </annotationProcessorPaths>
