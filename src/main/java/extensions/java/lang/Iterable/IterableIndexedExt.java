@@ -6,7 +6,6 @@ import manifold.ext.rt.api.IndexedFunction;
 import manifold.ext.rt.api.IndexedPredicate;
 import manifold.ext.rt.api.This;
 
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Extension
