@@ -6,6 +6,7 @@ import manifold.ext.rt.api.IndexedFunction;
 import manifold.ext.rt.api.IndexedPredicate;
 import manifold.ext.rt.api.This;
 
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 @Extension
@@ -15,12 +16,9 @@ public class IterableIndexedExt {
         return new Indexed<>(index, thiz[index]);
     }
 
-    public static <T> Indexed<T> getIndexed(@This Iterable<T> thiz, T t) {
-        return new Indexed<>(thiz.indexOf(t), t);
-    }
-
     public static <T> Stream<Indexed<T>> streamIndexed(@This Iterable<T> thiz) {
-        return thiz.mapIt(elem -> thiz.getIndexed(elem));
+        return IntStream.range(0, thiz.count())
+            .mapToObj(index -> thiz.getIndexed(index));
     }
 
     public static <T> Stream<Indexed<T>> filterIndexed(@This Iterable<T> thiz, IndexedPredicate<T> predicate) {

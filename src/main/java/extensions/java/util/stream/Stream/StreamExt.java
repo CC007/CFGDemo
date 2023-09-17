@@ -6,6 +6,7 @@ import manifold.ext.rt.api.IndexedFunction;
 import manifold.ext.rt.api.This;
 
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -15,17 +16,17 @@ public class StreamExt {
         return thiz.map(elem -> mapper.apply(elem.index, elem.elem));
     }
 
-    public static <T> Stream<Indexed<T>> toIndexed(@This Stream<T> thiz, Iterable<T> indexSource) {
+    public static <T> Stream<Indexed<T>> toIndexed(@This Stream<T> thiz, Set<T> indexSource) {
         return thiz.map(elem -> indexSource.getIndexed(elem));
     }
 
-    public static <T, R> Stream<Indexed<R>> mapIndexed(@This Stream<T> thiz, IndexedFunction<T, Indexed<R>> mapper, Iterable<T> indexSource) {
+    public static <T, R> Stream<Indexed<R>> mapIndexed(@This Stream<T> thiz, IndexedFunction<T, Indexed<R>> mapper, Set<T> indexSource) {
         return thiz
             .toIndexed(indexSource)
             .map(elem -> mapper.apply(elem.index, elem.elem));
     }
 
-    public static <T, R> Stream<Indexed<R>> mapToIndexed(@This Stream<T> thiz, Function<T, R> mapper, Iterable<R> indexSource) {
+    public static <T, R> Stream<Indexed<R>> mapToIndexed(@This Stream<T> thiz, Function<T, R> mapper, Set<R> indexSource) {
         return thiz
             .map(mapper)
             .toIndexed(indexSource);

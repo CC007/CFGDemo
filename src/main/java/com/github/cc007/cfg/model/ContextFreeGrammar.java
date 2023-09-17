@@ -1,10 +1,16 @@
 package com.github.cc007.cfg.model;
 
+import com.github.cc007.utils.Indexed;
+import dnl.utils.text.table.TextTable;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.SortedSet;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 import static manifold.collections.api.range.RangeFun.to_;
 
@@ -56,23 +62,40 @@ public record ContextFreeGrammar<T extends Comparable<T>>(
                 }
             }
         }
-        printP(possibilities);
+        printP(tokens, possibilities);
         return new Result<>(backPointingTriples, this);
     }
 
-    private void printP(List<List<List<Boolean>>> possibilities) {
-        for (int revLayer : 0 to_ (possibilities.size()) ) {
-            int layer = possibilities.size() - revLayer - 1;
-            System.out.print("$layer: | ");
-            for (int span : 0 to_ (possibilities[layer].size())) {
-                for (int variable : 0 to_ (possibilities[layer][span].size())) {
-                    if (possibilities[layer][span][variable]) {
-                        System.out.print("${variables[variable].ref} ");
+    private void printP(List<T> tokens, List<List<List<Boolean>>> possibilities) {
+        String[] columnNames = tokens
+            .map(Object::toString)
+            .toArray(String[]::new);
+
+        Object[][] data = possibilities
+            .map(layer -> layer
+                .map(span -> {
+                    Function<Indexed<Boolean>, Variable> getVariable = indexed -> variables[indexed.index];
+                    return span.filterIndexed((index, variableMatch) -> variableMatch)
+                        .map(getVariable)
+                        .map(Variable::ref)
+                        .collect(Collectors.joining(" "));
                     }
-                }
-                System.out.print("\t| ");
+                )
+                .toArray(Object[]::new)
+            )
+            .toArray(Object[][]::new);
+
+
+        TextTable textTable = new TextTable(columnNames, data);
+        textTable.setAddRowNumbering(true);
+        textTable.printTable();
+    }
+
+    private void forVariables(List<List<List<Boolean>>> possibilities, int span, int layer, Consumer<Variable> action) {
+        for (int variableIdx : 0 to_ (possibilities[layer][span].size())) {
+            if (possibilities[layer][span][variableIdx]) {
+                action.accept(variables[variableIdx]);
             }
-            System.out.println();
         }
     }
 
