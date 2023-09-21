@@ -1,4 +1,4 @@
 package com.github.cc007.cfg.model;
 
-public record BackPointingTriple(int layer, int leftVarIndex, int rightVarIndex) {
+public record BackPointingTriple(int partition, int leftVarIndex, int rightVarIndex) {
 }
