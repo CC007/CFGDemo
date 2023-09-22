@@ -28,7 +28,7 @@ public record ContextFreeGrammar<T extends Comparable<T>>(
     Variable startVariable
 ) {
 
-    public Result<T> parse(List<T> tokens) {
+    public Result<T> match(List<T> tokens) {
         int tokenCount = tokens.size();
         int variableCount = variables.size();
         List<List<List<Boolean>>> possibilities = getStairs(tokenCount, variableCount, () -> false);

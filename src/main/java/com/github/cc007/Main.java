@@ -51,7 +51,7 @@ public class Main {
             )
         );
         ContextFreeGrammar<String> contextFreeGrammar = new ContextFreeGrammar<>(variables, terminals, rules, s);
-        Result<String> parse = contextFreeGrammar.parse(
+        Result<String> parse = contextFreeGrammar.match(
             List.of("she", "eats", "a", "fish", "with", "a", "fork")
         );
         System.out.println(parse);
