@@ -21,7 +21,7 @@
         <hamcrest.version>2.2</hamcrest.version>
         <junit.version>5.10.0</junit.version>
         <lombok.version>1.18.28</lombok.version>
-        <manifold.version>2023.1.25</manifold.version>
+        <manifold.version>2023.1.26</manifold.version>
     </properties>
 
     <dependencies>

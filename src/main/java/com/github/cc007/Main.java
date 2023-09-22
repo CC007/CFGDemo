@@ -1,7 +1,7 @@
 package com.github.cc007;
 
 import com.github.cc007.cfg.model.ContextFreeGrammar;
-import com.github.cc007.cfg.model.Result;
+import com.github.cc007.cfg.model.result.Result;
 import com.github.cc007.cfg.model.Rule;
 import com.github.cc007.cfg.model.Terminal;
 import com.github.cc007.cfg.model.TerminalWord;
@@ -51,11 +51,9 @@ public class Main {
             )
         );
         ContextFreeGrammar<String> contextFreeGrammar = new ContextFreeGrammar<>(variables, terminals, rules, s);
-        Result<String> parse = contextFreeGrammar.match(
+        Result<String> result = contextFreeGrammar.match(
             List.of("she", "eats", "a", "fish", "with", "a", "fork")
         );
-        System.out.println(parse);
-
-
+        System.out.println(result.hasMatch());
     }
 }

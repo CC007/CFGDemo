@@ -1,5 +1,6 @@
 package com.github.cc007.cfg.model;
 
+import com.github.cc007.cfg.model.result.Result;
 import com.github.cc007.utils.Indexed;
 import dnl.utils.text.table.TextTable;
 
@@ -65,7 +66,7 @@ public record ContextFreeGrammar<T extends Comparable<T>>(
             }
         }
         printPossibilities(possibilities, tokens);
-        return new Result<>(backPointingTriples, this);
+        return new Result<>(backPointingTriples, this, tokens);
     }
 
     private void printPossibilities(List<List<List<Boolean>>> possibilities, List<T> tokens) {
